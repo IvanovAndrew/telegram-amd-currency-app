@@ -53,17 +53,23 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 
 const BANK_LOGOS: Record<string, string> = {
-  ameriabank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F60a290ec-cc57-464c-9ca7-472f57672ec3&w=64&q=75',
-  araratbank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F16693afc-6335-4dbe-aeb0-74e2f66296eb&w=64&q=75',
-  ardshinbank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2Fdbaa5d98-ea41-4384-8738-5bc5d98f5e00&w=64&q=75',
-  armswissbank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F3fea05ae-a81b-4365-a610-4ffbe834ee3b&w=64&q=75',
-  inecobank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F316bf6dc-df1e-4b00-921f-48264dbd4e65&w=64&q=75',
-  evocabank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F394ecccf-901b-4cc2-8116-ab16c515721a&w=64&q=75',
-  vtb: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2Fce120f36-bc97-4697-add0-6173fdb85e16&w=64&q=75',
-  acba: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2Feba94fe8-62c7-4216-89b1-d323baf8e359&w=64&q=75',
-  converse: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F6d78a3f7-68ea-41ed-8a49-1c5d36ab55d6&w=64&q=75',
-  fastbank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F33360a9d-0a14-4a16-bf47-24af6a0cde6a&w=64&q=75',
-  idbank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F7a31beee-c954-43e7-a05c-f15c808656fd&w=64&q=75',
+  ameriabank: 'logos/ameriabank.webp',
+  amiobank: 'logos/amiobank.webp',
+  araratbank: 'logos/araratbank.webp',
+  ardshinbank: 'logos/ardshinbank.webp',
+  armeconombank: 'logos/armeconombank.webp',
+  armswissbank: 'logos/armswissbank.webp',
+  artsakhbank: 'logos/artsakhbank.webp',
+  byblosbank: 'logos/byblosbank.webp',
+  inecobank: 'logos/inecobank.webp',
+  evocabank: 'logos/evokabank.webp',
+  vtb: 'logos/vtbbank.webp',
+  acba: 'logos/acbabank.webp',
+  mellatbank: 'logos/mellatbank.webp',
+  converse: 'logos/conversebank.webp',
+  fastbank: 'logos/fastbank.webp',
+  idbank: 'logos/idbank.webp',
+  unibank: 'logos/unibank.webp',
 };
 
 const getBankLogo = (bankName: string): string | null => {
@@ -77,15 +83,22 @@ const getBankLogo = (bankName: string): string | null => {
 // TODO set bank logos instead
 const BANK_COLORS: Record<string, string> = {
   ameriabank: '#00a859',
+  amiobank: '#00529c',
   araratbank: '#f39c12',
   ardshinbank: '#00529c',
+  armeconombank: '#00529c',
   armswissbank: '#e30613',
+  artsakhbank: '#008559',
+  byblosbank: '#f39c12',
+  idbank: '#e30613',
   inecobank: '#00a859',
+  mellatbank: '#e30613',
   evocabank: '#6f2b8d',
   vtb: '#002882',
   acba: '#008559',
   converse: '#f39c12',
   fastbank: '#6f2b8d',
+  unibank: '#002882',
 };
 
 const getBankColor = (bankName: string): string => {
@@ -98,7 +111,7 @@ const getBankColor = (bankName: string): string => {
 
 export const App: React.FC = () => {
   const [calcMode, setCalcMode] = useState<CalculationMode>('EXACT_SELL');
-  const [amount, setAmount] = useState<number>(100000);
+  const [amount, setAmount] = useState<number>(10000);
   const [fromCurrency, setFromCurrency] = useState<Currency>('AMD');
   const [toCurrency, setToCurrency] = useState<Currency>('RUR');
   const [isCash, setIsCash] = useState<boolean>(true);
@@ -186,8 +199,8 @@ export const App: React.FC = () => {
         const mappedResults: BankOption[] = sortedData.map((item, index) => {
           const calculatedAmount = (calcMode === 'EXACT_SELL' && baseCurrency === item.source) || 
             (calcMode === 'EXACT_BUY' && baseCurrency === item.target)
-            ? Math.round(amount * item.rate)
-            : Math.round(amount / item.rate);
+            ? Math.round(amount / item.rate)
+            : Math.round(amount * item.rate);
 
           return {
             id: `${item.exchangePoint}-${index}`,
