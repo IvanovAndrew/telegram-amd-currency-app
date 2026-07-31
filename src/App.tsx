@@ -110,10 +110,10 @@ const getBankColor = (bankName: string): string => {
 
 export const App: React.FC = () => {
   const [calcMode, setCalcMode] = useState<CalculationMode>('EXACT_SELL');
-  const [amount, setAmount] = useState<number>(10000);
+  const [amount, setAmount] = useState<number>(100000);
   const [fromCurrency, setFromCurrency] = useState<Currency>('AMD');
   const [toCurrency, setToCurrency] = useState<Currency>('RUR');
-  const [isCash, setIsCash] = useState<boolean>(true);
+  const [isCash, setIsCash] = useState<boolean>(false);
   
   const [results, setResults] = useState<BankOption[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
