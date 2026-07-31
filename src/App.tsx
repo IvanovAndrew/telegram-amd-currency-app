@@ -161,7 +161,7 @@ export const App: React.FC = () => {
 
         const mappedResults: BankOption[] = sortedData.map((item, index) => {
           const calculatedAmount = (calcMode === 'EXACT_SELL' && baseCurrency === item.source) || 
-            (calcMode === 'EXACT_BUY' && baseCurrency === item.source)
+            (calcMode === 'EXACT_BUY' && baseCurrency === item.target)
             ? Math.round(amount * item.rate)
             : Math.round(amount / item.rate);
 
