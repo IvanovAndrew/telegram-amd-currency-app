@@ -41,12 +41,38 @@ interface BankOption {
   calculatedAmount: number;
   isBest?: boolean;
   logoColor: string;
+  logoUrl?: string | null;
 }
 
 type Currency = 'AMD' | 'RUR' | 'USD' | 'EUR' | 'GEL';
+const baseCurrency = 'AMD';
+
 type CalculationMode = 'EXACT_SELL' | 'EXACT_BUY';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+
+const BANK_LOGOS: Record<string, string> = {
+  ameriabank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F60a290ec-cc57-464c-9ca7-472f57672ec3&w=64&q=75',
+  araratbank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F16693afc-6335-4dbe-aeb0-74e2f66296eb&w=64&q=75',
+  ardshinbank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2Fdbaa5d98-ea41-4384-8738-5bc5d98f5e00&w=64&q=75',
+  armswissbank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F3fea05ae-a81b-4365-a610-4ffbe834ee3b&w=64&q=75',
+  inecobank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F316bf6dc-df1e-4b00-921f-48264dbd4e65&w=64&q=75',
+  evocabank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F394ecccf-901b-4cc2-8116-ab16c515721a&w=64&q=75',
+  vtb: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2Fce120f36-bc97-4697-add0-6173fdb85e16&w=64&q=75',
+  acba: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2Feba94fe8-62c7-4216-89b1-d323baf8e359&w=64&q=75',
+  converse: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F6d78a3f7-68ea-41ed-8a49-1c5d36ab55d6&w=64&q=75',
+  fastbank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F33360a9d-0a14-4a16-bf47-24af6a0cde6a&w=64&q=75',
+  idbank: 'https://www.rate.am/_next/image?url=https%3A%2F%2Fcms.prd.rate.am%2Fapi%2Fassets%2Frate%2F7a31beee-c954-43e7-a05c-f15c808656fd&w=64&q=75',
+};
+
+const getBankLogo = (bankName: string): string | null => {
+  const normalized = bankName.toLowerCase().replace(/\s+/g, '');
+  for (const [key, logo] of Object.entries(BANK_LOGOS)) {
+    if (normalized.includes(key)) return logo;
+  }
+  return null;
+};
 
 // TODO set bank logos instead
 const BANK_COLORS: Record<string, string> = {
@@ -61,8 +87,6 @@ const BANK_COLORS: Record<string, string> = {
   converse: '#f39c12',
   fastbank: '#6f2b8d',
 };
-
-const baseCurrency = 'AMD';
 
 const getBankColor = (bankName: string): string => {
   const normalized = bankName.toLowerCase().replace(/\s+/g, '');
@@ -172,6 +196,7 @@ export const App: React.FC = () => {
             calculatedAmount,
             isBest: index === 0,
             logoColor: getBankColor(item.exchangePoint),
+            logoUrl: getBankLogo(item.exchangePoint),
           };
         });
 
@@ -346,8 +371,20 @@ export const App: React.FC = () => {
             {results.map((bank) => (
               <div key={bank.id} style={styles.bankCard}>
                 <div style={styles.bankLeft}>
-                  <div style={{ ...styles.bankAvatar, backgroundColor: bank.logoColor }}>
-                    {bank.bankName.charAt(0)}
+                  <div style={{ ...styles.bankAvatar, backgroundColor: bank.logoUrl ? 'transparent' : bank.logoColor }}>
+                    {bank.logoUrl ? (
+                      <img 
+                        src={bank.logoUrl} 
+                        alt={bank.bankName} 
+                        style={styles.bankLogoImg}
+                        onError={(e) => {
+                          // If there is no logo, show the first letter
+                          (e.currentTarget as HTMLElement).style.display = 'none';
+                        }} 
+                      />
+                    ) : (
+                      bank.bankName.charAt(0)
+                    )}
                   </div>
                   <div style={styles.bankDetails}>
                     <div style={styles.bankNameRow}>
@@ -655,6 +692,12 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: '14px',
     fontWeight: '500',
     color: 'var(--tg-theme-hint-color, #8e8e93)',
+  },
+  bankLogoImg: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'contain',
+    borderRadius: '12px',
   },
 };
 
