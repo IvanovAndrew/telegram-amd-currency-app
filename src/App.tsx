@@ -48,18 +48,18 @@ type CalculationMode = 'EXACT_SELL' | 'EXACT_BUY';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-// Палитра брендовых цветов для известных банков
+// TODO set bank logos instead
 const BANK_COLORS: Record<string, string> = {
   ameriabank: '#00a859',
-  araratbank: '#e30613',
-  ardshinbank: '#e30613',
+  araratbank: '#f39c12',
+  ardshinbank: '#00529c',
   armswissbank: '#e30613',
-  inecobank: '#00529c',
+  inecobank: '#00a859',
   evocabank: '#6f2b8d',
   vtb: '#002882',
   acba: '#008559',
   converse: '#f39c12',
-  fastbank: '#e67e22',
+  fastbank: '#6f2b8d',
 };
 
 const baseCurrency = 'AMD';
