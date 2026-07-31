@@ -62,7 +62,7 @@ const BANK_LOGOS: Record<string, string> = {
   artsakhbank: 'logos/artsakhbank.webp',
   byblosbank: 'logos/byblosbank.webp',
   inecobank: 'logos/inecobank.webp',
-  evocabank: 'logos/evokabank.webp',
+  evocabank: 'logos/evocabank.webp',
   vtb: 'logos/vtbbank.webp',
   acba: 'logos/acbabank.webp',
   mellatbank: 'logos/mellatbank.webp',
@@ -80,7 +80,6 @@ const getBankLogo = (bankName: string): string | null => {
   return null;
 };
 
-// TODO set bank logos instead
 const BANK_COLORS: Record<string, string> = {
   ameriabank: '#00a859',
   amiobank: '#00529c',
