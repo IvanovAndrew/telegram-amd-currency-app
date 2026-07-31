@@ -83,7 +83,7 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Инициализация Telegram SDK (Один единственный useEffect)
+  // Telegram SDK
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
     if (tg) {
