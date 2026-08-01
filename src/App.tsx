@@ -272,10 +272,7 @@ export const App: React.FC = () => {
         </div>
 
         {/* Amount Input Block */}
-        <div style={styles.amountInputBlock}>
-          <div style={styles.amountLabel}>
-            {calcMode === 'EXACT_SELL' ? `Sell (${fromCurrency})` : `Buy (${toCurrency})`}
-          </div>
+        <div--- style={styles.amountInputBlock}>
           <div style={styles.inputWrapper}>
             <input
               type="number"
@@ -523,8 +520,9 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   inputWrapper: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    justifyContent: 'center',
+    gap: '4px',
   },
   heroInput: {
     border: 'none',
@@ -532,8 +530,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: '28px',
     fontWeight: '700',
     color: 'var(--tg-theme-text-color, #1c1c1e)',
-    width: '70%',
     outline: 'none',
+    textAlign: 'right',
+    width: 'auto',
   },
   currencySymbol: {
     fontSize: '18px',
