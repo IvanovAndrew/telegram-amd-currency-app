@@ -278,7 +278,10 @@ export const App: React.FC = () => {
               type="number"
               value={amount || ''}
               onChange={(e) => setAmount(Number(e.target.value))}
-              style={styles.heroInput}
+              style={{
+                ...styles.heroInput,
+                width: `${Math.max(String(amount || 0).length, 1)}ch`,
+              }}
               placeholder="0"
             />
             <span style={styles.currencySymbol}>
@@ -531,8 +534,8 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontWeight: '700',
     color: 'var(--tg-theme-text-color, #1c1c1e)',
     outline: 'none',
-    textAlign: 'right',
-    width: 'auto',
+    padding: 0,
+    margin: 0,
   },
   currencySymbol: {
     fontSize: '18px',
