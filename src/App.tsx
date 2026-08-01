@@ -194,6 +194,8 @@ export const App: React.FC = () => {
         const sortedData = [...data].sort((a, b) => {
           return calcMode === 'EXACT_SELL' ? b.rate - a.rate : a.rate - b.rate;
         });
+        
+        var bestRate = sortedData[0].rate;
 
         const mappedResults: BankOption[] = sortedData.map((item, index) => {
           const calculatedAmount = (calcMode === 'EXACT_SELL' && baseCurrency === item.source) || 
@@ -206,7 +208,7 @@ export const App: React.FC = () => {
             bankName: item.exchangePoint,
             rate: item.rate,
             calculatedAmount,
-            isBest: index === 0,
+            isBest: item.rate === bestRate,
             logoColor: getBankColor(item.exchangePoint),
             logoUrl: getBankLogo(item.exchangePoint),
           };
