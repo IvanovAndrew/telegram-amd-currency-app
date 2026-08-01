@@ -272,7 +272,7 @@ export const App: React.FC = () => {
         </div>
 
         {/* Amount Input Block */}
-        <div--- style={styles.amountInputBlock}>
+        <div style={styles.amountInputBlock}>
           <div style={styles.inputWrapper}>
             <input
               type="number"
