@@ -273,9 +273,6 @@ export const App: React.FC = () => {
 
         {/* Amount Input Block */}
         <div style={styles.amountInputBlock}>
-          <div style={styles.amountLabel}>
-            {calcMode === 'EXACT_SELL' ? `Sell (${fromCurrency})` : `Buy (${toCurrency})`}
-          </div>
           <div style={styles.inputWrapper}>
             <input
               type="number"
