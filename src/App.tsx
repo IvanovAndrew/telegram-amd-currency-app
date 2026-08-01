@@ -354,8 +354,8 @@ export const App: React.FC = () => {
       <div style={styles.resultsSection}>
         <div style={styles.sectionTitle}>
           {calcMode === 'EXACT_SELL'
-            ? `You will get (${toCurrency}):`
-            : `Need to pay (${fromCurrency}):`}
+            ? `You will get`
+            : `Need to pay`}
         </div>
 
         {loading && (
@@ -403,7 +403,7 @@ export const App: React.FC = () => {
                       <span style={styles.bankName}>{bank.bankName}</span>
                       {bank.isBest && (
                         <span style={styles.bestBadge}>
-                          <TrendingUp size={11} style={{ marginRight: 3 }} />
+                          <TrendingUp size={10} style={{ marginRight: 3 }} />
                           The best
                         </span>
                       )}
